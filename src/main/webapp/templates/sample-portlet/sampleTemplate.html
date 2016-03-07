@@ -1,0 +1,30 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	User ID  = <span th:text="${themeDisplay.getUserId()}">123</span>
+	
+	<br />
+	
+	<form action="#" th:action="${sampleActionURL}" method="post" th:object="${mySampleFormBean}">
+		myField: <input type="text" th:field="*{myField}" />
+		
+		<input type="submit" />
+	</form> 
+
+	<button onClick="ajaxGet()">Ajax Test</button>
+	
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		function ajaxGet() {
+			var url = [[${sampleResourceURL}]];
+			var r = new XMLHttpRequest();
+			r.open("GET", url, true);
+			r.onreadystatechange = function() {
+				if(this.status == 200 && this.readyState == XMLHttpRequest.DONE) {
+					alert("AJAX Response = "+r.responseText);
+				}
+			};
+			r.send();
+		}
+	/*]]>*/
+	</script>
+</div>
+

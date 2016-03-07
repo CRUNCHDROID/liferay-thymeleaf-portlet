@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<!-- Thymeleaf basic configuration -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:liferay-thymeleaf-portlet-spring-beans.xml</param-value>
+    </context-param>
+    
+    <!-- Spring webapp context listener -->
+   	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>	
+
+	<!-- Spring view renderer servlet, mandatory for using Spring Portlet MVC -->
+	<servlet>
+	    <servlet-name>ViewRendererServlet</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.ViewRendererServlet</servlet-class>
+	</servlet>
+	
+	<!-- Spring Portlet MVC servlet -->
+    <servlet>
+        <servlet-name>Liferay Thymeleaf Sample Servlet</servlet-name>
+        <servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
+        <init-param>
+            <param-name>portlet-class</param-name>
+            <param-value>org.springframework.web.portlet.DispatcherPortlet</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    
+    <!-- Servlet mappings -->
+    
+   	<servlet-mapping>
+	    <servlet-name>ViewRendererServlet</servlet-name>
+	    <url-pattern>/WEB-INF/servlet/view</url-pattern>
+	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Liferay Thymeleaf Sample Servlet</servlet-name>
+        <url-pattern>/sample-portlet/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
